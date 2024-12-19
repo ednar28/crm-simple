@@ -1,5 +1,6 @@
 {
     "intelephense.format.enable": false,
+    "files.saveConflictResolution": "overwriteFileOnDisk",
     "[php]": {
         "editor.tabSize": 4,
         "editor.formatOnSave": true,
