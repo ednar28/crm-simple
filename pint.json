@@ -1,0 +1,27 @@
+{
+    "preset": "laravel",
+    "rules": {
+        "concat_space": {
+            "spacing": "one"
+        },
+        "new_with_parentheses": {
+            "named_class": true,
+            "anonymous_class": false
+        },
+        "no_extra_blank_lines": {
+            "tokens": [
+                "attribute",
+                "case",
+                "continue",
+                "curly_brace_block",
+                "default",
+                "extra",
+                "parenthesis_brace_block",
+                "square_brace_block",
+                "switch",
+                "throw",
+                "use"
+            ]
+        }
+    }
+}

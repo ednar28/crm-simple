@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Application Name
@@ -123,4 +122,14 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Setup Project
+    |--------------------------------------------------------------------------
+    | All configuration about application.
+    |
+    */
+    'project' => [
+        'ide_helper' => env('APP_IDE_HELPER', false),
+    ],
 ];

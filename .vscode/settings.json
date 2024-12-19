@@ -1,0 +1,12 @@
+{
+    "intelephense.format.enable": false,
+    "[php]": {
+        "editor.tabSize": 4,
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "open-southeners.laravel-pint"
+    },
+    "[blade]": {
+        "editor.tabSize": 2
+    },
+    "laravel-pint.enable": true
+}
