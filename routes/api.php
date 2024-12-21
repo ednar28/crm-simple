@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\CompanyController;
 use Illuminate\Support\Facades\Route;
 
 Route::controller(AuthController::class)
@@ -14,6 +14,13 @@ Route::controller(AuthController::class)
         });
     });
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
+Route::prefix('company')
+    ->middleware('auth:api')
+    ->controller(CompanyController::class)
+    ->group(function () {
+        Route::get('', 'index')->name('company.index');
+        Route::post('', 'store')->name('company.store');
+        Route::get('{company}', 'show')->name('company.show');
+        Route::put('{company}', 'update')->name('company.update');
+        Route::delete('{company}', 'destroy')->name('company.destroy');
+    });
