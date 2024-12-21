@@ -38,7 +38,7 @@ class LoginRequest extends FormRequest
         ];
 
         /** @var string $token */
-        if (! $token = \Auth::attempt($credentials)) {
+        if (! $token = \Auth::attempt($credentials)) { // @phpstan-ignore-line
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([

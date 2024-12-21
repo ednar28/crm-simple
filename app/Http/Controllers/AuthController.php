@@ -27,8 +27,7 @@ class AuthController extends Controller
     public function refresh(): JsonResponse
     {
         /** @var string */
-        // $token = \Auth::refresh();
-        $token = auth()->refresh();
+        $token = \Auth::refresh();
 
         return $this->respondWithToken($token);
     }
@@ -65,7 +64,7 @@ class AuthController extends Controller
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60,
+            'expires_in' => \Auth::factory()->getTTL() * 60, // @phpstan-ignore-line
         ]);
     }
 }

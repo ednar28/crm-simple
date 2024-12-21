@@ -2,9 +2,12 @@
 
 namespace Database\Factories;
 
+use App\Enums\Role as EnumsRole;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Spatie\Permission\Models\Role;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
@@ -30,6 +33,20 @@ class UserFactory extends Factory
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
         ];
+    }
+
+    /**
+     * Append user name with role name that will be used and removed on configure().
+     */
+    public function role(string|EnumsRole $roleName): static
+    {
+        return $this->afterCreating(function (User $user) use ($roleName) {
+            $roleName = is_string($roleName) ? $roleName : $roleName->value;
+
+            // get or create role if not exist and assign it to user.
+            $role = Role::findOrCreate($roleName);
+            $user->assignRole($role);
+        });
     }
 
     /**
