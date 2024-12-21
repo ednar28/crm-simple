@@ -3,7 +3,11 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use App\Enums\Permission;
+use App\Enums\Role;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
@@ -104,5 +108,42 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims() // @phpstan-ignore-line
     {
         return [];
+    }
+
+    /**
+     * Get a information.
+     *
+     * @return HasOne<Employee,$this>
+     */
+    public function employee(): HasOne
+    {
+        return $this->hasOne(Employee::class);
+    }
+
+    /**
+     * Check user can access a company
+     */
+    public function canManageCompany(Company $company, Permission $permission, bool $isOnlyManager = false): bool
+    {
+        if ($this->can($permission)) {
+            return true;
+        }
+
+        /** @var Employee */
+        $employee = $this->employee;
+
+        if (is_null($employee)) {
+            return false;
+        }
+
+        if ($employee->company_id !== $company->id) {
+            return false;
+        }
+
+        if ($isOnlyManager) {
+            return $this->hasRole(Role::MANAGER_COMPANY);
+        }
+
+        return true;
     }
 }

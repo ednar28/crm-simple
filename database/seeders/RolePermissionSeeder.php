@@ -18,6 +18,8 @@ class RolePermissionSeeder extends Seeder
         $this->insertPermissions();
 
         $this->createRoleSuperadmin();
+
+        $this->createRole(EnumsRole::MANAGER_COMPANY->value);
     }
 
     /**

@@ -12,6 +12,12 @@ enum Permission: string
     case COMPANY_EDIT = 'Edit a Company';
     case COMPANY_DELETE = 'Delete a Company';
 
+    case EMPLOYEE_LIST = 'See the List of Employees';
+    case EMPLOYEE_CREATE = 'Create an Employee';
+    case EMPLOYEE_SHOW = 'See an Employee';
+    case EMPLOYEE_EDIT = 'Edit an Employee';
+    case EMPLOYEE_DELETE = 'Delete an Employee';
+
     /**
      * Get all permissions.
      *

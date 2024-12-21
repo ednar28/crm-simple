@@ -4,6 +4,8 @@ namespace Tests;
 
 use App\Enums\Permission as EnumsPermission;
 use App\Enums\Role as EnumsRole;
+use App\Models\Company;
+use App\Models\Employee;
 use App\Models\User;
 use Spatie\Permission\Models\Role;
 
@@ -46,6 +48,34 @@ trait TestAuth
     public function createSuperadmin(): User
     {
         return User::factory()->role(EnumsRole::SUPERADMIN->value)->create();
+    }
+
+    /**
+     * Seed a user with role Manager Company.
+     */
+    public function createManagerCompany(?Company $company = null): User
+    {
+        if (is_null($company)) {
+            $company = Company::factory()->create();
+        }
+
+        return User::factory()->role(EnumsRole::MANAGER_COMPANY)
+            ->has(Employee::factory()->for($company))
+            ->create();
+    }
+
+    /**
+     * Seed a user with role Manager Company.
+     */
+    public function createEmployee(?Company $company = null): User
+    {
+        if (is_null($company)) {
+            $company = Company::factory()->create();
+        }
+
+        return User::factory()
+            ->has(Employee::factory()->for($company))
+            ->create();
     }
 
     /**

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\EmployeeController;
 use Illuminate\Support\Facades\Route;
 
 Route::controller(AuthController::class)
@@ -23,4 +24,15 @@ Route::prefix('company')
         Route::get('{company}', 'show')->name('company.show');
         Route::put('{company}', 'update')->name('company.update');
         Route::delete('{company}', 'destroy')->name('company.destroy');
+    });
+
+Route::prefix('employee')
+    ->middleware('auth:api')
+    ->controller(EmployeeController::class)
+    ->group(function () {
+        Route::get('company/{company}', 'index')->name('employee.index');
+        Route::post('company/{company}', 'store')->name('employee.store');
+        Route::get('{employee}', 'show')->name('employee.show');
+        Route::put('{employee}', 'update')->name('employee.update');
+        Route::delete('{employee}', 'destroy')->name('employee.destroy');
     });
